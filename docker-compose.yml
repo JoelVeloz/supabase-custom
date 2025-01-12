@@ -278,22 +278,22 @@ services:
   #   volumes:
   #     - ./volumes/storage:/var/lib/storage:z
 
-  meta:
-    image: supabase/postgres-meta:v0.84.2
-    depends_on:
-      db:
-        # Disable this if you are using an external Postgres database
-        condition: service_healthy
-      analytics:
-        condition: service_healthy
-    restart: unless-stopped
-    environment:
-      PG_META_PORT: 8080
-      PG_META_DB_HOST: ${POSTGRES_HOST}
-      PG_META_DB_PORT: ${POSTGRES_PORT}
-      PG_META_DB_NAME: ${POSTGRES_DB}
-      PG_META_DB_USER: supabase_admin
-      PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
+  # meta:
+  #   image: supabase/postgres-meta:v0.84.2
+  #   depends_on:
+  #     db:
+  #       # Disable this if you are using an external Postgres database
+  #       condition: service_healthy
+  #     analytics:
+  #       condition: service_healthy
+  #   restart: unless-stopped
+  #   environment:
+  #     PG_META_PORT: 8080
+  #     PG_META_DB_HOST: ${POSTGRES_HOST}
+  #     PG_META_DB_PORT: ${POSTGRES_PORT}
+  #     PG_META_DB_NAME: ${POSTGRES_DB}
+  #     PG_META_DB_USER: supabase_admin
+  #     PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   # functions:
   #   image: supabase/edge-runtime:v1.65.3
@@ -397,8 +397,8 @@ services:
       - ./volumes/db/_supabase.sql:/docker-entrypoint-initdb.d/migrations/97-_supabase.sql:Z
       # Changes required for Analytics support
       - ./volumes/db/logs.sql:/docker-entrypoint-initdb.d/migrations/99-logs.sql:Z
-      # Changes required for Pooler support
-      - ./volumes/db/pooler.sql:/docker-entrypoint-initdb.d/migrations/99-pooler.sql:Z
+      # # Changes required for Pooler support
+      # - ./volumes/db/pooler.sql:/docker-entrypoint-initdb.d/migrations/99-pooler.sql:Z
       # Use named volume to persist pgsodium decryption key between restarts
       - db-config:/etc/postgresql-custom
 
